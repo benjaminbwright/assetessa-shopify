@@ -9,7 +9,7 @@ const { getJSEntries } = require("./lib/init");
 // get yaml store config
 
 const storeConfig = yaml.safeLoad(
-  fs.readFileSync(path.join(__dirname, "../../dist/config.yml"))
+  fs.readFileSync(path.join(__dirname, "../../src/config.yml"))
 );
 
 // copy src folder to dist
