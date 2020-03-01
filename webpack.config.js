@@ -4,6 +4,7 @@ const fs = require("fs-extra");
 const yaml = require("js-yaml");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const { getJSEntries } = require("./lib/init");
 
 // get yaml store config
 
@@ -16,30 +17,6 @@ fs.copySync(
 );
 
 fs.removeSync(path.join(__dirname, "../../dist/assets"));
-
-const getJSEntries = function(assetPath, prefix) {
-  // add a dash to the prefix
-  prefix += prefix ? "-" : "";
-  assetPath = `/..${assetPath}`;
-  const container = {};
-  // read all of the js files in the folder
-  if (fs.existsSync(assetPath)) {
-    fs.readdirSync(assetPath)
-      .filter(function(file) {
-        return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
-      })
-      .forEach(function(file) {
-        const fileName = `${prefix}${file.split(".")[0]}`;
-        container[fileName] = path.join(
-          // __dirname,
-          assetPath,
-          `${file}`
-        );
-      });
-  }
-
-  return container;
-};
 
 // setup webpack entry for js from pagescripts
 const jsEntries = {
@@ -55,17 +32,6 @@ const jsEntries = {
   //...config.jsEntries
 };
 
-// fs.readdirSync(__dirname + "/../../src/assets")
-//   .filter(function(file) {
-//     return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
-//   })
-//   .forEach(function(file) {
-//     jsEntries[file.split(".")[0]] = path.join(
-//       __dirname,
-//       "../../src/assets",
-//       file
-//     );
-//   });
 console.log(jsEntries);
 
 // export config for webpack
