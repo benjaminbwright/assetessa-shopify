@@ -1,0 +1,22 @@
+{
+  "name": "assetessa-shopify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack",
+    "build": "webpack --watch",
+    "theme-preview": "cd ../../dist && theme open",
+    "theme-watch": "cd ../../dist && theme watch",
+    "theme-deploy": "cd ../../dist && theme deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
