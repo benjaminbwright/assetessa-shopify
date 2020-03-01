@@ -17,23 +17,52 @@ fs.copySync(
 
 fs.removeSync(path.join(__dirname, "../../dist/assets"));
 
+const getJSEntries = function(assetPath, prefix) {
+  // add a dash to the prefix
+  prefix += prefix ? "-" : "";
+  assetPath = `/..${assetPath}`;
+  const container = {};
+  // read all of the js files in the folder
+  fs.readdirSync(assetPath)
+    .filter(function(file) {
+      return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
+    })
+    .forEach(function(file) {
+      const fileName = `${prefix}${file.split(".")[0]}`;
+      container[fileName] = path.join(
+        // __dirname,
+        assetPath,
+        `${file}`
+      );
+    });
+  return container;
+};
+
 // setup webpack entry for js from pagescripts
 const jsEntries = {
-  application: path.join(__dirname, "../../src/assets/application.js")
+  application: path.join(__dirname, "../../src/assets/application.js"),
+  ...getJSEntries(
+    path.join(__dirname, "../../src/assets/js/templates"),
+    "template"
+  ),
+  ...getJSEntries(
+    path.join(__dirname, "../../src/assets/js/templates"),
+    "sections"
+  )
   //...config.jsEntries
 };
 
-fs.readdirSync(__dirname + "/../../src/assets")
-  .filter(function(file) {
-    return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
-  })
-  .forEach(function(file) {
-    jsEntries[file.split(".")[0]] = path.join(
-      __dirname,
-      "../../src/assets",
-      file
-    );
-  });
+// fs.readdirSync(__dirname + "/../../src/assets")
+//   .filter(function(file) {
+//     return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
+//   })
+//   .forEach(function(file) {
+//     jsEntries[file.split(".")[0]] = path.join(
+//       __dirname,
+//       "../../src/assets",
+//       file
+//     );
+//   });
 console.log(jsEntries);
 
 // export config for webpack
