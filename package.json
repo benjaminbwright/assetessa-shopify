@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
-    "build": "npm run theme-watch & webpack --watch",
+    "build": "webpack --watch && npm run theme-watch",
     "theme-preview": "cd ../../dist && theme open",
     "theme-watch": "cd ../../dist && theme watch",
     "theme-deploy": "cd ../../dist && theme deploy"

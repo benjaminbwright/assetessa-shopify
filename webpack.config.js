@@ -84,7 +84,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       path: "../../dist/assets",
-      filename: "style.css"
+      filename: "theme.css"
     }),
     new BrowserSyncPlugin(
       // BrowserSync options
