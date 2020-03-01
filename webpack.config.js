@@ -23,18 +23,21 @@ const getJSEntries = function(assetPath, prefix) {
   assetPath = `/..${assetPath}`;
   const container = {};
   // read all of the js files in the folder
-  fs.readdirSync(assetPath)
-    .filter(function(file) {
-      return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
-    })
-    .forEach(function(file) {
-      const fileName = `${prefix}${file.split(".")[0]}`;
-      container[fileName] = path.join(
-        // __dirname,
-        assetPath,
-        `${file}`
-      );
-    });
+  if (fs.existsSync(assetPath)) {
+    fs.readdirSync(assetPath)
+      .filter(function(file) {
+        return file.indexOf(".") !== 0 && file.slice(-3) === ".js";
+      })
+      .forEach(function(file) {
+        const fileName = `${prefix}${file.split(".")[0]}`;
+        container[fileName] = path.join(
+          // __dirname,
+          assetPath,
+          `${file}`
+        );
+      });
+  }
+
   return container;
 };
 
@@ -46,7 +49,7 @@ const jsEntries = {
     "template"
   ),
   ...getJSEntries(
-    path.join(__dirname, "../../src/assets/js/templates"),
+    path.join(__dirname, "../../src/assets/js/sections"),
     "sections"
   )
   //...config.jsEntries

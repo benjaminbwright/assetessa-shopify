@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
+const path = require("path");
 const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
+const { createSRCScripts } = require("./lib/init");
 
 const input = process.argv[2];
 
 const compiler = webpack(webpackConfig);
 
 switch (input) {
+  case "init":
+    createSRCScripts(path.join(__dirname, "../../src/templates"));
+    createSRCScripts(path.join(__dirname, "../../src/sections"));
+    break;
   case "build":
     console.log("Bundling assets...");
     compiler.run((err, stats) => {
