@@ -1,7 +1,7 @@
 {
   "name": "assetessa-shopify",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Assetessa shopify is a webpack asset pipeline for Shopify",
   "main": "index.js",
   "bin": "cli.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "theme-deploy": "cd ../../dist && theme deploy"
   },
   "keywords": [],
-  "author": "",
+  "author": "Benjamin Wright",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.8.6",
