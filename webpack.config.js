@@ -1,6 +1,7 @@
 // dependencies
 const path = require("path");
 const fs = require("fs-extra");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // copy src folder to dist
 fs.copySync(
@@ -37,5 +38,47 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.join(__dirname, "../../dist/assets")
-  }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"]
+          }
+        }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: "../../dist/assets"
+            }
+          },
+          {
+            loader: "css-loader",
+            options: {
+              import: true
+            }
+          },
+          {
+            loader: "sass-loader"
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      path: "../../dist/assets",
+      filename: "style.css"
+    })
+  ]
 };
