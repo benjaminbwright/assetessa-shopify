@@ -1,7 +1,13 @@
 // dependencies
 const path = require("path");
 const fs = require("fs-extra");
+const yaml = require("js-yaml");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+
+// get yaml store config
+
+const storeConfig = yaml.safeLoad(fs.readFileSync("../../dist/config.yml"));
 
 // copy src folder to dist
 fs.copySync(
@@ -79,6 +85,34 @@ module.exports = {
       // both options are optional
       path: "../../dist/assets",
       filename: "style.css"
-    })
+    }),
+    new BrowserSyncPlugin(
+      // BrowserSync options
+      {
+        // browse to http://localhost:3000/ during development
+        host: "localhost",
+        port: 3000,
+        // proxy the Webpack Dev Server endpoint
+        // (which should be serving on http://localhost:3100/)
+        // through BrowserSync
+        proxy: `https://${storeConfig.development.store}/?preview_theme_id=${storeConfig.development.theme_id}`,
+        browser: "google chrome",
+        reloadDelay: 4000,
+        snippetOptions: {
+          rule: {
+            match: /<\/body>/i,
+            fn: function(snippet, match) {
+              return snippet + match;
+            }
+          }
+        }
+      },
+      // plugin options
+      {
+        // prevent BrowserSync from reloading the page
+        // and let Webpack Dev Server take care of this
+        reload: true
+      }
+    )
   ]
 };
