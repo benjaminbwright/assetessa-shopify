@@ -28,8 +28,6 @@
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "node-watch": "^0.6.3",
-    "pre-build-webpack": "^0.1.0",
-    "prebuild-webpack-plugin": "^1.1.0",
     "sass-loader": "^8.0.2",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
