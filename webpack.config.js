@@ -6,8 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const { getJSEntries } = require("./lib/init");
 
-// get yaml store config
-
+// get yaml store config for constructing live reload
 const storeConfig = yaml.safeLoad(
   fs.readFileSync(path.join(__dirname, "../../src/config.yml"))
 );
@@ -18,23 +17,24 @@ fs.copySync(
   path.join(__dirname, "../../dist")
 );
 
+// remove the existing production assets directory
 fs.removeSync(path.join(__dirname, "../../dist/assets"));
 
 // setup webpack entry for js from pagescripts
 const jsEntries = {
+  // get template js entries
   application: path.join(__dirname, "../../src/assets/application.js"),
   ...getJSEntries(
     path.join(__dirname, "../../src/assets/js/templates"),
     "template"
   ),
+  // get section js entries
   ...getJSEntries(
     path.join(__dirname, "../../src/assets/js/sections"),
     "sections"
   )
   //...config.jsEntries
 };
-
-console.log(jsEntries);
 
 // export config for webpack
 module.exports = {
