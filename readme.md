@@ -13,7 +13,23 @@ A simple webpack asset pipeline for Shopify themes.
 
 ### File Structure
 
-All of your shopify theme files must be placed inside of a `src` directory.
+All of your shopify theme files must be placed inside of a `src` directory. Here is the minimum folder structur you will need:
+
+```
+root
+|-- src
+    |-- assets
+        |-- application.js
+        |__ application.scss
+    |-- config
+    |-- layout
+    |-- locales
+    |-- sections
+    |-- snippets
+    |-- templates
+    |-- config.yml
+|-- package.json
+```
 
 ### Installation
 
@@ -60,6 +76,8 @@ Builds the `dist` folder with Webpack and places it in the root of your project 
     "theme-deploy": "cd dist && theme deploy"
   },
 ```
+
+In this example, when you run `npm run watch` the theme watcher will start and webpack will crunch your assets into the `dist` and open up a browser window. The correct styles may not show up on the initial load, but when you begin making updates to the files the browser window will begin reloading with the correct styles displaying.
 
 ### Questions?
 
