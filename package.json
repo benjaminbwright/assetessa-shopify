@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack",
-    "build": "webpack --watch && npm run theme-watch",
+    "build": "webpack --watch & npm run theme-watch",
     "theme-preview": "cd ../../dist && theme open",
     "theme-watch": "cd ../../dist && theme watch",
     "theme-deploy": "cd ../../dist && theme deploy"
@@ -22,10 +22,14 @@
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^3.4.2",
+    "extra-watch-webpack-plugin": "^1.0.3",
     "fs-extra": "^8.1.0",
     "js-yaml": "^3.13.1",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
+    "node-watch": "^0.6.3",
+    "pre-build-webpack": "^0.1.0",
+    "prebuild-webpack-plugin": "^1.1.0",
     "sass-loader": "^8.0.2",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"

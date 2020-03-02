@@ -4,21 +4,40 @@ const fs = require("fs-extra");
 const yaml = require("js-yaml");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
+const WebpackPreBuildPlugin = require("pre-build-webpack");
+const PrebuildPlugin = require("prebuild-webpack-plugin");
 const { getJSEntries } = require("./lib/init");
+const watch = require("node-watch");
 
 // get yaml store config for constructing live reload
 const storeConfig = yaml.safeLoad(
   fs.readFileSync(path.join(__dirname, "../../src/config.yml"))
 );
 
-// copy src folder to dist
-fs.copySync(
-  path.join(__dirname, "../../src"),
-  path.join(__dirname, "../../dist")
-);
+function buildNewDist() {
+  // copy src folder to dist
+  fs.copySync(
+    path.join(__dirname, "../../src"),
+    path.join(__dirname, "../../dist")
+  );
 
-// remove the existing production assets directory
-fs.removeSync(path.join(__dirname, "../../dist/assets"));
+  // remove the existing production assets directory
+  fs.removeSync(path.join(__dirname, "../../dist/assets"));
+}
+
+buildNewDist();
+
+watch(
+  path.join(__dirname, "../../src/"),
+  { recursive: true, filter: /\.liquid$/ },
+  (event, file) => {
+    console.log("changed: ", file);
+    filePath = file.replace("/src/", "/dist/");
+    console.log(filePath);
+    fs.copySync(file, filePath);
+  }
+);
 
 // setup webpack entry for js from pagescripts
 const jsEntries = {
@@ -39,7 +58,7 @@ const jsEntries = {
 // export config for webpack
 module.exports = {
   // mode set to production by default
-  mode: "production",
+  mode: "development",
   entry: jsEntries,
   output: {
     filename: "[name].js",
@@ -113,6 +132,13 @@ module.exports = {
         // and let Webpack Dev Server take care of this
         reload: true
       }
-    )
+    ),
+    new ExtraWatchWebpackPlugin({
+      files: ["../../src/*/*.*"],
+      dirs: ["../../src/*/*"]
+    }),
+    new WebpackPreBuildPlugin(function(stats) {
+      // Do whatever you want before build starts...
+    })
   ]
 };
