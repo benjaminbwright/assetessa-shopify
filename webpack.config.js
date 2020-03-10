@@ -9,7 +9,7 @@ const watch = require("node-watch");
 
 // get yaml store config for constructing live reload
 const storeConfig = yaml.safeLoad(
-  fs.readFileSync(path.join(__dirname, "../../src/config.yml"))
+  fs.readFileSync(path.join(__dirname, "..", "..", "src", "config.yml"))
 );
 
 // build new dist folder
