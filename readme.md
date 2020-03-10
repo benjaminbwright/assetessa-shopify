@@ -19,6 +19,8 @@ All of your shopify theme files must be placed inside of a `src` directory. Here
 root
 |-- src
     |-- assets
+        |-- images
+            |-- image.png
         |-- application.js
         |__ application.scss
     |-- config
