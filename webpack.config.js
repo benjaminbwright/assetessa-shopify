@@ -13,14 +13,14 @@ const storeConfig = yaml.safeLoad(
 );
 
 // build new dist folder
-buildNewDist(path.join(__dirname, "../../src"));
+buildNewDist(path.join(__dirname, "..", "..", "src"));
 
 watch(
-  path.join(__dirname, "../../src/"),
+  path.join(__dirname, "..", "..", "src"),
   { recursive: true, filter: /\.liquid$/ },
   (event, file) => {
     console.log("changed: ", file);
-    filePath = file.replace("/src/", "/dist/");
+    filePath = file.replace("src", "dist");
     console.log(filePath);
     fs.copySync(file, filePath);
   }
@@ -45,11 +45,11 @@ const jsEntries = {
 // export config for webpack
 module.exports = {
   // mode set to production by default
-  mode: "development",
+  mode: "production",
   entry: jsEntries,
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "../../dist/assets")
+    path: path.join(__dirname, "..", "..", "dist", "assets")
   },
   module: {
     rules: [
