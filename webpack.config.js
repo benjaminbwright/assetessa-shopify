@@ -113,7 +113,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       path: "../../dist/assets",
-      filename: "theme.css.liquid"
+      filename: "theme.css"
     }),
     new BrowserSyncPlugin(
       // BrowserSync options
