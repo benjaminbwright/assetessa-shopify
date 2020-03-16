@@ -125,7 +125,7 @@ module.exports = {
         // (which should be serving on http://localhost:3100/)
         // through BrowserSync
         proxy: `https://${storeConfig.development.store}/?preview_theme_id=${storeConfig.development.theme_id}`,
-        browser: "google chrome",
+        // browser: "open",
         reloadDelay: 4000,
         snippetOptions: {
           rule: {
