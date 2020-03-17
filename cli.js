@@ -24,7 +24,6 @@ switch (input) {
       if (err) {
         console.log(err);
       }
-      console.log(stats);
     });
     break;
   case "watch":

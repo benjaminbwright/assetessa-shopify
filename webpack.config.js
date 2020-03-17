@@ -19,9 +19,7 @@ watch(
   path.join(__dirname, "..", "..", "src"),
   { recursive: true, filter: /\.liquid$/ },
   (event, file) => {
-    console.log("changed: ", file);
     filePath = file.replace("src", "dist");
-    console.log(filePath);
     fs.copySync(file, filePath);
   }
 );
