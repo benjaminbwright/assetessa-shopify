@@ -77,6 +77,15 @@ module.exports = {
             }
           },
           {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+              config: {
+                path: path.resolve(__dirname, "./postcss.config.js")
+              }
+            }
+          },
+          {
             loader: "sass-loader"
           }
         ]
@@ -111,7 +120,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       path: "../../dist/assets",
-      filename: "theme.css"
+      filename: "theme.css.liquid"
     }),
     new BrowserSyncPlugin(
       // BrowserSync options
