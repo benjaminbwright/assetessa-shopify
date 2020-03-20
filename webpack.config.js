@@ -27,14 +27,21 @@ watch(
 // setup webpack entry for js from pagescripts
 const jsEntries = {
   // get template js entries
-  application: path.join(__dirname, "../../src/assets/application.js"),
+  application: path.join(
+    __dirname,
+    "..",
+    "..",
+    "src",
+    "assets",
+    "application.js"
+  ),
   ...getJSEntries(
-    path.join(__dirname, "../../src/assets/js/templates"),
+    path.join(__dirname, "..", "..", "src", "assets", "js", "templates"),
     "template"
   ),
   // get section js entries
   ...getJSEntries(
-    path.join(__dirname, "../../src/assets/js/sections"),
+    path.join(__dirname, "..", "..", "src", "assets", "js", "sections"),
     "sections"
   )
   //...config.jsEntries
