@@ -74,7 +74,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: "../../dist/assets"
+              publicPath: path.join("..", "..", "dist", "assets")
             }
           },
           {
@@ -88,7 +88,7 @@ module.exports = {
             options: {
               sourceMap: true,
               config: {
-                path: path.resolve(__dirname, "./postcss.config.js")
+                path: path.resolve(__dirname, "postcss.config.js")
               }
             }
           },
@@ -103,7 +103,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              publicPath: "../../src/assets/images",
+              publicPath: path.join("..", "..", "src", "assets", "images"),
               name: "[name].[ext]"
             }
           }
@@ -126,7 +126,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      path: "../../dist/assets",
+      path: path.join("..", "..", "dist", "assets"),
       filename: "theme.scss.liquid"
     }),
     new BrowserSyncPlugin(
