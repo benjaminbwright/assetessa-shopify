@@ -1,6 +1,6 @@
 {
   "name": "assetessa-shopify",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Assetessa shopify is a webpack asset pipeline for Shopify",
   "main": "index.js",
   "bin": "cli.js",
