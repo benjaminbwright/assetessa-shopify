@@ -43,7 +43,7 @@ const jsEntries = {
   ...getJSEntries(
     path.join(__dirname, "..", "..", "src", "assets", "js", "sections"),
     "sections"
-  )
+  ),
   //...config.jsEntries
 };
 
@@ -54,7 +54,7 @@ module.exports = {
   entry: jsEntries,
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "..", "..", "dist", "assets")
+    path: path.join(__dirname, "..", "..", "dist", "assets"),
   },
   module: {
     rules: [
@@ -64,9 +64,9 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.s[ac]ss$/i,
@@ -74,28 +74,28 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: path.join("..", "..", "dist", "assets")
-            }
+              publicPath: path.join("..", "..", "dist", "assets"),
+            },
           },
           {
             loader: "css-loader",
             options: {
-              import: true
-            }
+              import: true,
+            },
           },
           {
             loader: "postcss-loader",
             options: {
               sourceMap: true,
               config: {
-                path: path.resolve(__dirname, "postcss.config.js")
-              }
-            }
+                path: path.resolve(__dirname, "postcss.config.js"),
+              },
+            },
           },
           {
-            loader: "sass-loader"
-          }
-        ]
+            loader: "sass-loader",
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -104,11 +104,22 @@ module.exports = {
             loader: "file-loader",
             options: {
               publicPath: path.join("..", "..", "src", "assets", "images"),
-              name: "[name].[ext]"
-            }
-          }
-        ]
-      }
+              name: "[name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff(2)?|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            publicPath: path.join("..", "..", "src", "assets", "fonts"),
+            mimetype: "application/font-woff",
+            name: "[name].[ext]",
+          },
+        },
+      },
       // {
       //   test: /\.(liquid)$/,
       //   use: [
@@ -120,14 +131,14 @@ module.exports = {
       //     }
       //   ]
       // }
-    ]
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       path: path.join("..", "..", "dist", "assets"),
-      filename: "theme.scss.liquid"
+      filename: "theme.scss.liquid",
     }),
     new BrowserSyncPlugin(
       // BrowserSync options
@@ -144,18 +155,18 @@ module.exports = {
         snippetOptions: {
           rule: {
             match: /<\/body>/i,
-            fn: function(snippet, match) {
+            fn: function (snippet, match) {
               return snippet + match;
-            }
-          }
-        }
+            },
+          },
+        },
       },
       // plugin options
       {
         // prevent BrowserSync from reloading the page
         // and let Webpack Dev Server take care of this
-        reload: true
+        reload: true,
       }
-    )
-  ]
+    ),
+  ],
 };
